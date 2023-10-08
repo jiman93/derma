@@ -1,0 +1,254 @@
+{
+  "malaysia": [
+    {
+      "state": "Johor",
+      "coordinate": {
+        "lat": 1.4927,
+        "lng": 103.7414
+      },
+      "districts": [
+        { "name": "Johor Bahru", "coordinate": { "lat": 1.4655, "lng": 103.7578 } },
+        { "name": "Batu Pahat", "coordinate": { "lat": 1.8536, "lng": 102.9336 } },
+        { "name": "Kluang", "coordinate": { "lat": 2.0259, "lng": 103.3166 } },
+        {
+          "name": "Muar",
+          "coordinate": { "lat": 2.0442, "lng": 102.5681 }
+        },
+        {
+          "name": "Segamat",
+          "coordinate": { "lat": 2.5152, "lng": 102.8174 }
+        },
+        {
+          "name": "Pontian",
+          "coordinate": { "lat": 1.4854, "lng": 103.388 }
+        },
+        {
+          "name": "Kota Tinggi",
+          "coordinate": { "lat": 1.7357, "lng": 103.9025 }
+        },
+        {
+          "name": "Mersing",
+          "coordinate": { "lat": 2.4311, "lng": 103.8408 }
+        },
+        {
+          "name": "Kulai",
+          "coordinate": { "lat": 1.6698, "lng": 103.5705 }
+        }
+      ]
+    },
+    {
+      "state": "Kedah",
+      "coordinate": {
+        "lat": 5.649718444,
+        "lng": 100.4793343
+      },
+      "districts": [
+        { "name": "Alor Setar", "coordinate": { "lat": 6.1216, "lng": 100.3604 } },
+        { "name": "Kulim", "coordinate": { "lat": 5.3676, "lng": 100.5434 } },
+        { "name": "Kota Star", "coordinate": { "lat": 6.1317, "lng": 100.3673 } },
+        { "name": "Sungai Petani", "coordinate": { "lat": 5.6432, "lng": 100.4928 } },
+        { "name": "Pokok Sena", "coordinate": { "lat": 6.1362, "lng": 100.4009 } },
+        { "name": "Langkawi", "coordinate": { "lat": 6.35, "lng": 99.8 } }
+      ]
+    },
+    {
+      "state": "Kelantan",
+      "coordinate": {
+        "lat": 6.119973978,
+        "lng": 102.2299768
+      },
+      "districts": [
+        { "name": "Kota Bharu", "coordinate": { "lat": 6.1254, "lng": 102.2385 } },
+        { "name": "Pasir Mas", "coordinate": { "lat": 6.0257, "lng": 102.1442 } },
+        { "name": "Tumpat", "coordinate": { "lat": 6.1977, "lng": 102.1677 } },
+        { "name": "Pengkalan Chepa", "coordinate": { "lat": 6.12, "lng": 102.2364 } },
+        { "name": "Tanah Merah", "coordinate": { "lat": 5.798, "lng": 102.1603 } },
+        { "name": "Kuala Krai", "coordinate": { "lat": 5.5124, "lng": 102.1989 } },
+        { "name": "Gua Musang", "coordinate": { "lat": 4.8821, "lng": 101.9682 } },
+        { "name": "Bachok", "coordinate": { "lat": 6.0477, "lng": 102.3945 } },
+        { "name": "Pasir Puteh", "coordinate": { "lat": 5.832856, "lng": 102.4052828 } },
+        { "name": "Machang", "coordinate": { "lat": 5.767933, "lng": 102.215385 } },
+        { "name": "Jeli", "coordinate": { "lat": 5.689, "lng": 101.8309 } }
+      ]
+    },
+    {
+      "state": "Melaka",
+      "coordinate": {
+        "lat": 2.206414407,
+        "lng": 102.2464615
+      },
+      "districts": [
+        { "name": "Melaka Tengah", "coordinate": { "lat": 2.2711, "lng": 102.2887 } },
+        { "name": "Alor Gajah", "coordinate": { "lat": 2.3822, "lng": 102.2116 } },
+        { "name": "Jasin", "coordinate": { "lat": 2.3113, "lng": 102.4309 } },
+        { "name": "Masjid Tanah", "coordinate": { "lat": 2.3523, "lng": 102.1089 } }
+      ]
+    },
+    {
+      "state": "Negeri Sembilan",
+      "coordinate": {
+        "lat": 2.710492166,
+        "lng": 101.9400203
+      },
+      "districts": [
+        { "name": "Seremban", "coordinate": { "lat": 2.7258, "lng": 101.9369 } },
+        { "name": "Port Dickson", "coordinate": { "lat": 2.5224, "lng": 101.7968 } },
+        { "name": "Tampin", "coordinate": { "lat": 2.4641, "lng": 102.2183 } },
+        { "name": "Jelebu", "coordinate": { "lat": 2.9411, "lng": 102.0719 } },
+        { "name": "Kuala Pilah", "coordinate": { "lat": 2.7405, "lng": 102.2489 } },
+        { "name": "Rembau", "coordinate": { "lat": 2.5905, "lng": 102.093 } }
+      ]
+    },
+    {
+      "state": "Pahang",
+      "coordinate": {
+        "lat": 4.18400112,
+        "lng": 102.0420006
+      },
+      "districts": [
+        { "name": "Kuantan", "coordinate": { "lat": 3.8077, "lng": 103.326 } },
+        { "name": "Temerloh", "coordinate": { "lat": 3.4555, "lng": 102.4145 } },
+        { "name": "Bentong", "coordinate": { "lat": 3.5151, "lng": 101.9094 } },
+        { "name": "Raub", "coordinate": { "lat": 3.8016, "lng": 101.8576 } },
+        { "name": "Lipis", "coordinate": { "lat": 4.184, "lng": 102.042 } },
+        { "name": "Cameron Highlands", "coordinate": { "lat": 4.4723, "lng": 101.3803 } },
+        { "name": "Jerantut", "coordinate": { "lat": 3.9335, "lng": 102.3636 } },
+        { "name": "Pekan", "coordinate": { "lat": 3.4912, "lng": 103.3928 } },
+        { "name": "Maran", "coordinate": { "lat": 3.5834, "lng": 102.7791 } },
+        { "name": "Bera", "coordinate": { "lat": 3.2647, "lng": 102.4459 } },
+        { "name": "Kuala Lipis", "coordinate": { "lat": 4.1896, "lng": 102.0461 } }
+      ]
+    },
+    {
+      "state": "Perak",
+      "coordinate": {
+        "lat": 4.01185976,
+        "lng": 101.0314453
+      },
+      "districts": [
+        { "name": "Ipoh", "coordinate": { "lat": 4.5975, "lng": 101.0901 } },
+        { "name": "Taiping", "coordinate": { "lat": 4.8547, "lng": 100.7276 } },
+        { "name": "Teluk Intan", "coordinate": { "lat": 4.0249, "lng": 101.0199 } },
+        { "name": "Kuala Kangsar", "coordinate": { "lat": 4.7767, "lng": 100.9426 } },
+        { "name": "Lumut", "coordinate": { "lat": 4.2321, "lng": 100.6301 } },
+        { "name": "Sitiawan", "coordinate": { "lat": 4.2183, "lng": 100.7082 } },
+        { "name": "Seri Manjung", "coordinate": { "lat": 4.2039, "lng": 100.6701 } },
+        { "name": "Batu Gajah", "coordinate": { "lat": 4.4721, "lng": 101.0412 } },
+        { "name": "Kampar", "coordinate": { "lat": 4.2991, "lng": 101.1442 } },
+        { "name": "Sungai Siput", "coordinate": { "lat": 4.819, "lng": 101.0737 } },
+        { "name": "Pengkalan Hulu", "coordinate": { "lat": 5.7064, "lng": 100.9998 } },
+        { "name": "Bidor", "coordinate": { "lat": 4.1116, "lng": 101.2878 } }
+      ]
+    },
+    {
+      "state": "Perlis",
+      "coordinate": {
+        "lat": 6.517,
+        "lng": 100.2152
+      },
+      "districts": [
+        { "name": "Kangar", "coordinate": { "lat": 6.4406, "lng": 100.1984 } },
+        { "name": "Arau", "coordinate": { "lat": 6.4297, "lng": 100.2698 } },
+        { "name": "Kuala Perlis", "coordinate": { "lat": 6.3979, "lng": 100.1307 } }
+      ]
+    },
+    {
+      "state": "Pulau Pinang",
+      "coordinate": {
+        "lat": 5.417071146,
+        "lng": 100.4000109
+      },
+      "districts": [
+        { "name": "George Town", "coordinate": { "lat": 5.415, "lng": 100.3354 } },
+        { "name": "Butterworth", "coordinate": { "lat": 5.4631, "lng": 100.3761 } },
+        { "name": "Seberang Perai", "coordinate": { "lat": 5.37, "lng": 100.4139 } },
+        { "name": "Bukit Mertajam", "coordinate": { "lat": 5.363, "lng": 100.461 } },
+        { "name": "Kepala Batas", "coordinate": { "lat": 5.5172, "lng": 100.4315 } },
+        { "name": "Nibong Tebal", "coordinate": { "lat": 5.1627, "lng": 100.4869 } },
+        { "name": "Perai", "coordinate": { "lat": 5.3773, "lng": 100.4001 } },
+        { "name": "Balik Pulau", "coordinate": { "lat": 5.3625, "lng": 100.2286 } }
+      ]
+    },
+    {
+      "state": "Sabah",
+      "coordinate": {
+        "lat": 5.046396097,
+        "lng": 118.3359704
+      },
+      "districts": [
+        { "name": "Kota Kinabalu", "coordinate": { "lat": 5.9749, "lng": 116.0724 } },
+        { "name": "Sandakan", "coordinate": { "lat": 5.8402, "lng": 118.1179 } },
+        { "name": "Tawau", "coordinate": { "lat": 4.2767, "lng": 117.8854 } },
+        { "name": "Lahad Datu", "coordinate": { "lat": 5.0333, "lng": 118.327 } },
+        { "name": "Kudat", "coordinate": { "lat": 6.8983, "lng": 116.8387 } },
+        { "name": "Semporna", "coordinate": { "lat": 4.4814, "lng": 118.6114 } },
+        { "name": "Keningau", "coordinate": { "lat": 5.3342, "lng": 116.16 } },
+        { "name": "Putatan", "coordinate": { "lat": 5.9058, "lng": 116.0674 } },
+        { "name": "Donggongon", "coordinate": { "lat": 5.9171, "lng": 116.1105 } },
+        { "name": "Tambunan", "coordinate": { "lat": 5.6167, "lng": 116.4278 } },
+        { "name": "Papar", "coordinate": { "lat": 5.7233, "lng": 115.94 } },
+        { "name": "Kota Belud", "coordinate": { "lat": 6.3517, "lng": 116.4278 } },
+        { "name": "Tuaran", "coordinate": { "lat": 6.1997, "lng": 116.178 } },
+        { "name": "Ranau", "coordinate": { "lat": 5.9454, "lng": 116.6716 } }
+      ]
+    },
+    {
+      "state": "Sarawak",
+      "coordinate": {
+        "lat": 3.16640749,
+        "lng": 113.0359838
+      },
+      "districts": [
+        { "name": "Kuching", "coordinate": { "lat": 1.5309, "lng": 110.3442 } },
+        { "name": "Miri", "coordinate": { "lat": 4.4148, "lng": 114.0089 } },
+        { "name": "Sibu", "coordinate": { "lat": 2.2908, "lng": 111.8261 } },
+        { "name": "Bintulu", "coordinate": { "lat": 3.1675, "lng": 113.0467 } },
+        { "name": "Kapit", "coordinate": { "lat": 2.0167, "lng": 112.9333 } },
+        { "name": "Sarikei", "coordinate": { "lat": 2.1167, "lng": 111.5167 } },
+        { "name": "Sri Aman", "coordinate": { "lat": 1.2436, "lng": 111.4527 } },
+        { "name": "Mukah", "coordinate": { "lat": 2.9185, "lng": 112.0665 } },
+        { "name": "Limbang", "coordinate": { "lat": 4.7513, "lng": 115.0056 } },
+        { "name": "Betong", "coordinate": { "lat": 1.8025, "lng": 111.2436 } },
+        { "name": "Lundu", "coordinate": { "lat": 1.8193, "lng": 109.9717 } }
+      ]
+    },
+    {
+      "state": "Selangor",
+      "coordinate": {
+        "lat": 3.066695996,
+        "lng": 101.5499977
+      },
+      "districts": [
+        { "name": "Shah Alam", "coordinate": { "lat": 3.0685, "lng": 101.5186 } },
+        { "name": "Petaling Jaya", "coordinate": { "lat": 3.1073, "lng": 101.6067 } },
+        { "name": "Klang", "coordinate": { "lat": 3.0439, "lng": 101.4496 } },
+        { "name": "Subang Jaya", "coordinate": { "lat": 3.0452, "lng": 101.5365 } },
+        { "name": "Selayang", "coordinate": { "lat": 3.2452, "lng": 101.6429 } },
+        { "name": "Serdang", "coordinate": { "lat": 3.0306, "lng": 101.731 } },
+        { "name": "Kajang", "coordinate": { "lat": 2.9914, "lng": 101.7881 } },
+        { "name": "Rawang", "coordinate": { "lat": 3.3213, "lng": 101.5785 } },
+        { "name": "Ampang", "coordinate": { "lat": 3.145, "lng": 101.7678 } },
+        { "name": "Sepang", "coordinate": { "lat": 2.6873, "lng": 101.751 } },
+        { "name": "Hulu Langat", "coordinate": { "lat": 3.0855, "lng": 101.8482 } },
+        { "name": "Kuala Selangor", "coordinate": { "lat": 3.339, "lng": 101.2518 } },
+        { "name": "Sabak Bernam", "coordinate": { "lat": 3.505, "lng": 100.9965 } }
+      ]
+    },
+    {
+      "state": "Terengganu",
+      "coordinate": {
+        "lat": 4.233241596,
+        "lng": 103.4478869
+      },
+      "districts": [
+        { "name": "Kuala Terengganu", "coordinate": { "lat": 5.3285, "lng": 103.1376 } },
+        { "name": "Kemaman", "coordinate": { "lat": 4.2446, "lng": 103.4213 } },
+        { "name": "Dungun", "coordinate": { "lat": 4.7174, "lng": 103.4354 } },
+        { "name": "Besut", "coordinate": { "lat": 5.7966, "lng": 102.5701 } },
+        { "name": "Marang", "coordinate": { "lat": 5.1264, "lng": 103.1939 } },
+        { "name": "Setiu", "coordinate": { "lat": 5.532, "lng": 102.9075 } },
+        { "name": "Hulu Terengganu", "coordinate": { "lat": 5.1963, "lng": 102.571 } }
+      ]
+    }
+  ]
+}

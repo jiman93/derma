@@ -1,0 +1,69 @@
+{
+  "locations": [
+    {
+      "name": "Johor",
+      "latitude": 1.4927,
+      "longitude": 103.7414
+    },
+    {
+      "name": "Kedah",
+      "latitude": 5.649718444,
+      "longitude": 100.4793343
+    },
+    {
+      "name": "Kelantan",
+      "latitude": 6.119973978,
+      "longitude": 102.2299768
+    },
+    {
+      "name": "Melaka",
+      "latitude": 2.206414407,
+      "longitude": 102.2464615
+    },
+    {
+      "name": "Negeri Sembilan",
+      "latitude": 2.710492166,
+      "longitude": 101.9400203
+    },
+    {
+      "name": "Pahang",
+      "latitude": 4.18400112,
+      "longitude": 102.0420006
+    },
+    {
+      "name": "Perak",
+      "latitude": 4.01185976,
+      "longitude": 101.0314453
+    },
+    {
+      "name": "Perlis",
+      "latitude": 6.433001991,
+      "longitude": 100.1899987
+    },
+    {
+      "name": "Pulau Pinang",
+      "latitude": 5.417071146,
+      "longitude": 100.4000109
+    },
+    {
+      "name": "Sabah",
+      "latitude": 5.046396097,
+      "longitude": 118.3359704
+    },
+    {
+      "name": "Sarawak",
+      "latitude": 3.16640749,
+      "longitude": 113.0359838
+    },
+    {
+      "name": "Selangor",
+      "latitude": 3.066695996,
+      "longitude": 101.5499977
+    },
+    {
+      "name": "Trengganu",
+      "latitude": 4.233241596,
+      "longitude": 103.4478869
+    }
+  ]
+}
