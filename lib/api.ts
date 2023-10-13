@@ -1,4 +1,3 @@
-import { AnySoaRecord } from 'dns';
 import { decamelizeKeys } from 'humps';
 import { stringify } from 'qs';
 import { BaseResponse, OFFLINE_ERROR, PlaceData } from '../definitions';

@@ -1,28 +1,10 @@
-import {
-  Box,
-  Code,
-  Table,
-  Title,
-  Text,
-  Image,
-  ActionIcon,
-  Flex,
-  Paper,
-  Group,
-  ScrollArea,
-} from '@mantine/core';
-import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
+import { Box, Code, Table, Text, Image, Flex, Paper, Group } from '@mantine/core';
+import { useHover } from '@mantine/hooks';
+import Link from 'next/link';
 import { useContext, useEffect, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
-
-import { PlaceData } from '../../definitions';
 import { getMasjidListing, getPhoto } from '../../lib/api';
-
 import { MapSearchContext } from '../../store/contexts/mapSearch';
-
-type Props = {
-  itemData: PlaceData;
-};
 
 const MapListing = () => {
   const {
@@ -32,11 +14,12 @@ const MapListing = () => {
     onSetListData,
     onSetNextPageToken,
     nextPageToken,
-    district,
-    stateName,
+    searchText,
+    onSetHoveredMarker,
   } = useContext(MapSearchContext);
+
+  const { hovered, ref } = useHover();
   const [imagePath, setImagePath] = useState('');
-  const [page, setPage] = useState(1);
 
   const getImage = async () => {
     let photoData = '';
@@ -59,11 +42,8 @@ const MapListing = () => {
   }, [selectedData]);
 
   const handleNext = async () => {
-    console.log('handleNext', page);
-    setPage(2);
-
     try {
-      const search = `masjid at ${district || stateName}`;
+      const search = searchText;
       const response = await getMasjidListing({ search, page_token: nextPageToken });
       const { results, nextPageToken: pageToken } = response;
 
@@ -75,11 +55,13 @@ const MapListing = () => {
   };
 
   const rows = listData.map((element) => (
-    <tr key={element.place_id}>
+    <Table.Tr key={element.place_id}>
       <Box
         px="sm"
         pb="xs"
         style={{ cursor: 'pointer' }}
+        onMouseEnter={() => onSetHoveredMarker(element, true)}
+        onMouseLeave={() => onSetHoveredMarker(element, false)}
         onClick={() => {
           onSetSelectedData(element);
         }}
@@ -89,20 +71,27 @@ const MapListing = () => {
           {element.user_ratings_total} <Code>{element.rating}</Code>
         </Text>
       </Box>
-    </tr>
+    </Table.Tr>
   ));
-
-  console.log('nextPageToken', nextPageToken, !!nextPageToken);
 
   return (
     <>
       {selectedData && (
-        <Paper shadow="xs" p="xl">
-          <Text size="lg" weight="bolder">
-            {selectedData.name}
+        <Paper shadow="xs" p="sm">
+          <Text size="md" fw="bolder" display="inline-flex">
+            <Link href={`/masjid/${selectedData.place_id}`}>
+              <Box ref={ref} style={{ cursor: 'pointer', textDecoration: hovered && 'underline' }}>
+                {selectedData.name}
+              </Box>
+            </Link>
           </Text>
-          <Image src={imagePath} alt="Your Alt Text" />
-          <Text size="xs">{selectedData.formatted_address}</Text>
+          <Group grow>
+            <Image src={imagePath} alt="masjid preview" width={150} height={100} />
+            <Box>
+              <Text size="xs">{selectedData.formatted_address}</Text>
+              <Text size="xs">Rating: {selectedData.user_ratings_total}</Text>
+            </Box>
+          </Group>
         </Paper>
       )}
 
@@ -111,7 +100,7 @@ const MapListing = () => {
       </Flex>
 
       <InfiniteScroll
-        height={500}
+        height={600}
         dataLength={listData.length} //This is important field to render the next data
         next={handleNext}
         hasMore={!!nextPageToken}
@@ -122,8 +111,8 @@ const MapListing = () => {
           </p>
         }
       >
-        <Table striped withBorder={false}>
-          <tbody>{rows}</tbody>
+        <Table highlightOnHover withRowBorders striped>
+          <Table.Tbody>{rows}</Table.Tbody>
         </Table>
       </InfiniteScroll>
     </>

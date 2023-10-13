@@ -1,6 +1,36 @@
 {
   "malaysia": [
     {
+      "state": "Kuala Lumpur",
+      "coordinate": {
+        "lat": 3.1319,
+        "lng": 101.6841
+      },
+      "districts": []
+    },
+    {
+      "state": "Selangor",
+      "coordinate": {
+        "lat": 3.066695996,
+        "lng": 101.5499977
+      },
+      "districts": [
+        { "name": "Shah Alam", "coordinate": { "lat": 3.0685, "lng": 101.5186 } },
+        { "name": "Petaling Jaya", "coordinate": { "lat": 3.1073, "lng": 101.6067 } },
+        { "name": "Klang", "coordinate": { "lat": 3.0439, "lng": 101.4496 } },
+        { "name": "Subang Jaya", "coordinate": { "lat": 3.0452, "lng": 101.5365 } },
+        { "name": "Selayang", "coordinate": { "lat": 3.2452, "lng": 101.6429 } },
+        { "name": "Serdang", "coordinate": { "lat": 3.0306, "lng": 101.731 } },
+        { "name": "Kajang", "coordinate": { "lat": 2.9914, "lng": 101.7881 } },
+        { "name": "Rawang", "coordinate": { "lat": 3.3213, "lng": 101.5785 } },
+        { "name": "Ampang", "coordinate": { "lat": 3.145, "lng": 101.7678 } },
+        { "name": "Sepang", "coordinate": { "lat": 2.6873, "lng": 101.751 } },
+        { "name": "Hulu Langat", "coordinate": { "lat": 3.0855, "lng": 101.8482 } },
+        { "name": "Kuala Selangor", "coordinate": { "lat": 3.339, "lng": 101.2518 } },
+        { "name": "Sabak Bernam", "coordinate": { "lat": 3.505, "lng": 100.9965 } }
+      ]
+    },
+    {
       "state": "Johor",
       "coordinate": {
         "lat": 1.4927,
@@ -210,28 +240,6 @@
         { "name": "Limbang", "coordinate": { "lat": 4.7513, "lng": 115.0056 } },
         { "name": "Betong", "coordinate": { "lat": 1.8025, "lng": 111.2436 } },
         { "name": "Lundu", "coordinate": { "lat": 1.8193, "lng": 109.9717 } }
-      ]
-    },
-    {
-      "state": "Selangor",
-      "coordinate": {
-        "lat": 3.066695996,
-        "lng": 101.5499977
-      },
-      "districts": [
-        { "name": "Shah Alam", "coordinate": { "lat": 3.0685, "lng": 101.5186 } },
-        { "name": "Petaling Jaya", "coordinate": { "lat": 3.1073, "lng": 101.6067 } },
-        { "name": "Klang", "coordinate": { "lat": 3.0439, "lng": 101.4496 } },
-        { "name": "Subang Jaya", "coordinate": { "lat": 3.0452, "lng": 101.5365 } },
-        { "name": "Selayang", "coordinate": { "lat": 3.2452, "lng": 101.6429 } },
-        { "name": "Serdang", "coordinate": { "lat": 3.0306, "lng": 101.731 } },
-        { "name": "Kajang", "coordinate": { "lat": 2.9914, "lng": 101.7881 } },
-        { "name": "Rawang", "coordinate": { "lat": 3.3213, "lng": 101.5785 } },
-        { "name": "Ampang", "coordinate": { "lat": 3.145, "lng": 101.7678 } },
-        { "name": "Sepang", "coordinate": { "lat": 2.6873, "lng": 101.751 } },
-        { "name": "Hulu Langat", "coordinate": { "lat": 3.0855, "lng": 101.8482 } },
-        { "name": "Kuala Selangor", "coordinate": { "lat": 3.339, "lng": 101.2518 } },
-        { "name": "Sabak Bernam", "coordinate": { "lat": 3.505, "lng": 100.9965 } }
       ]
     },
     {

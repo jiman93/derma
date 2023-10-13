@@ -1,60 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import GoogleMapReact from 'google-map-react';
 import {} from '../lib/api';
 import { MapSearchContext } from '../store/contexts/mapSearch';
+import { ActionIcon, Tooltip } from '@mantine/core';
 import { PlaceData } from '../definitions';
-import { ActionIcon, HoverCard, Text, Tooltip } from '@mantine/core';
 
-const getInfoWindowString = (place: PlaceData) => `
-    <div>
-      <div style="font-size: 16px;">
-        ${place.name}
-      </div>
-      <div style="font-size: 14px;">
-        <span style="color: grey;">
-        ${place.rating}
-        </span>
-        <span style="color: orange;">${String.fromCharCode(9733).repeat(
-          Math.floor(place.rating)
-        )}</span><span style="color: lightgrey;">${String.fromCharCode(9733).repeat(
-  5 - Math.floor(place.rating)
-)}</span>
-      </div>
-      <div style="font-size: 14px; color: grey;">
-        ${place.types[0]}
-      </div>
-      <div style="font-size: 14px; color: grey;">
-        ${'$'.repeat(place.rating)}
-      </div>
-      <div style="font-size: 14px; color: green;">
-        ${place.user_ratings_total}
-      </div>
-    </div>`;
-
-const Marker = ({ text, lat: _lat, lng: _lng, data }) => {
-  const { onSetSelectedData } = useContext(MapSearchContext);
+const Marker = ({ text, lat: _lat, lng: _lng, data, opened }) => {
+  const { onSetSelectedData, onSetHoveredMarker } = useContext(MapSearchContext);
 
   return (
-    // <HoverCard width={280} shadow="md">
-    //   <HoverCard.Target>
-    //     <div
-    //       style={{
-    //         backgroundColor: 'red',
-    //         color: 'white',
-    //         padding: '5px 10px',
-    //         borderRadius: '50%',
-    //         display: 'inline-block',
-    //         transform: 'translate(-50%, -50%)',
-    //       }}
-    //     >
-    //       {text}
-    //     </div>
-    //   </HoverCard.Target>
-    //   <HoverCard.Dropdown>
-    //     <Text size="sm">{data.name}</Text>
-    //   </HoverCard.Dropdown>
-    // </HoverCard>
-    <Tooltip label={data.name} color="red">
+    <Tooltip label={data.name} color="red" opened={opened}>
       <ActionIcon
         variant="filled"
         size="sm"
@@ -63,27 +18,17 @@ const Marker = ({ text, lat: _lat, lng: _lng, data }) => {
         aria-label="marker"
         style={{ transform: 'translate(-50%, -50%)' }}
         onClick={() => onSetSelectedData(data)}
+        onMouseEnter={() => onSetHoveredMarker(data, true)}
+        onMouseLeave={() => onSetHoveredMarker(data, false)}
       >
         {text}
       </ActionIcon>
-      {/* <div
-        style={{
-          backgroundColor: 'red',
-          color: 'white',
-          padding: '5px 10px',
-          borderRadius: '50%',
-          display: 'inline-block',
-          transform: 'translate(-50%, -50%)',
-        }}
-      >
-        {text}
-      </div> */}
     </Tooltip>
   );
 };
 
 export default function SimpleMap() {
-  const { coordinate, listData } = useContext(MapSearchContext);
+  const { coordinate, listData, hoveredMarker } = useContext(MapSearchContext);
 
   const defaultProps = {
     center: {
@@ -91,35 +36,6 @@ export default function SimpleMap() {
       lng: 101.7089209,
     },
     zoom: 12,
-  };
-
-  const handleApiLoaded = (map, maps, places) => {
-    const markers = [];
-    const infowindows = [];
-
-    places.forEach((place) => {
-      markers.push(
-        new maps.Marker({
-          position: {
-            lat: place.geometry.location.lat,
-            lng: place.geometry.location.lng,
-          },
-          map,
-        })
-      );
-
-      infowindows.push(
-        new maps.InfoWindow({
-          content: getInfoWindowString(place),
-        })
-      );
-    });
-
-    markers.forEach((marker, i) => {
-      marker.addListener('click', () => {
-        infowindows[i].open(map, marker);
-      });
-    });
   };
 
   return (
@@ -130,7 +46,8 @@ export default function SimpleMap() {
         center={coordinate}
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals
-        // onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps, places)}
+        draggable={false}
+        options={{ zoomControl: false }}
       >
         {listData.map((marker, index) => (
           <Marker
@@ -139,6 +56,7 @@ export default function SimpleMap() {
             lng={marker?.geometry?.location?.lng}
             data={marker}
             text={index}
+            opened={hoveredMarker === marker}
           />
         ))}
       </GoogleMapReact>

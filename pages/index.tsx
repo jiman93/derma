@@ -1,19 +1,8 @@
-import {
-  Text,
-  Button,
-  Container,
-  Flex,
-  Input,
-  Select,
-  Table,
-  Space,
-  Box,
-  Grid,
-} from '@mantine/core';
+import { Text, Space, Grid } from '@mantine/core';
 import { GetStaticProps, NextPage } from 'next';
 
 import { useInputState } from '@mantine/hooks';
-import { SyntheticEvent, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { PlaceData } from '../definitions';
 import { MapSearchContext } from '../store/contexts/mapSearch';
 import { getMasjidListing } from '../lib/api';
@@ -26,7 +15,7 @@ type MasjidProps = {
 };
 
 const Masjid: NextPage<MasjidProps> = ({ data, token }) => {
-  const { stateName, district, onSetListData, listData, onSetNextPageToken } =
+  const { searchText, onSetListData, listData, onSetNextPageToken, showDistrictBar } =
     useContext(MapSearchContext);
   const [inputChange, setInputChange] = useInputState('masjid');
 
@@ -35,62 +24,18 @@ const Masjid: NextPage<MasjidProps> = ({ data, token }) => {
     onSetNextPageToken(token);
   }, [data]);
 
-  const rows = listData.map((element) => (
-    <tr key={element.place_id}>
-      <td>{element.name}</td>
-      <td>{element.business_status}</td>
-      <td>{element.formatted_address}</td>
-      <td>{element.user_ratings_total}</td>
-    </tr>
-  ));
-
-  const handleSubmit = async (event: SyntheticEvent) => {
-    event.preventDefault();
-    console.log('handleSubmit', inputChange);
-
-    try {
-      const search = `${inputChange} at ${district || stateName}`;
-      const listingData = await getMasjidListing({ search });
-
-      const { results, nextPageToken } = listingData;
-
-      console.log(results);
-      onSetListData(results);
-      onSetNextPageToken(nextPageToken);
-    } catch (err) {
-      console.log('Failed: getMasjidListing');
-    }
-  };
-
   return (
     <Grid>
-      <Grid.Col span={5}>
+      <Grid.Col span={showDistrictBar ? 5 : 4}>
         <Sidebar />
       </Grid.Col>
-      <Grid.Col span={7}>
-        <Space h="md" />
-
-        <form onSubmit={handleSubmit}>
-          <Flex gap={20}>
-            <Input value={inputChange} onChange={setInputChange} />
-            <Button type="submit">Search </Button>
-            <Text py="md">{`Search for ${district}, ${stateName || ''}`}</Text>
-          </Flex>
-        </form>
-
+      <Grid.Col span={showDistrictBar ? 7 : 8}>
+        <Space h="sm" />
+        <Text fw={'bolder'} size="lg">{`Masjid ${
+          searchText === 'masjid' ? 'in Malaysia' : searchText
+        }`}</Text>
+        <Space h="sm" />
         <SimpleMap />
-        {/* 
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Status</th>
-                <th>Address</th>
-                <th>User Ratings</th>
-              </tr>
-            </thead>
-            <tbody>{rows}</tbody>
-          </Table> */}
       </Grid.Col>
     </Grid>
   );

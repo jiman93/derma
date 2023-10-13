@@ -1,21 +1,22 @@
+import '@mantine/core/styles.css';
+
 import { AppProps } from 'next/app';
-import Head from 'next/head';
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core';
+import { createTheme, MantineProvider } from '@mantine/core';
 
 import './index.scss';
 import MapSearchProvider from '../store/providers/mapSearch';
-import { useLocalStorage } from '@mantine/hooks';
 import HeaderBar from '../components/HeaderBar/HeaderBar';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+
+dayjs.extend(relativeTime);
 
 export default function App(props: AppProps) {
   const { Component, pageProps } = props;
-  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'color-scheme',
-    defaultValue: 'dark',
-  });
 
-  const toggleColorScheme = () =>
-    setColorScheme((current) => (current === 'dark' ? 'light' : 'dark'));
+  const theme = createTheme({
+    /** Put your mantine theme override here */
+  });
 
   const providerWrapper = (
     <>
@@ -28,18 +29,7 @@ export default function App(props: AppProps) {
 
   return (
     <>
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          theme={{
-            /** Put your mantine theme override here */
-            colorScheme,
-          }}
-        >
-          {providerWrapper}
-        </MantineProvider>
-      </ColorSchemeProvider>
+      <MantineProvider defaultColorScheme="dark">{providerWrapper}</MantineProvider>
     </>
   );
 }

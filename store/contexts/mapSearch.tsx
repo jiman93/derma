@@ -19,6 +19,10 @@ type MapSearchContext = {
   onSetSelectedData?: (p: PlaceData) => void;
   nextPageToken: string;
   onSetNextPageToken?: (t: string) => void;
+  showDistrictBar: boolean;
+  searchText: string;
+  hoveredMarker: PlaceData;
+  onSetHoveredMarker?: (m: PlaceData, isHovered: boolean) => void;
 };
 
 const mapSearch: MapSearchContext = {
@@ -28,6 +32,9 @@ const mapSearch: MapSearchContext = {
   listData: [],
   selectedData: null,
   nextPageToken: '',
+  showDistrictBar: false,
+  searchText: '',
+  hoveredMarker: null,
 };
 
 export const MapSearchContext = createContext<MapSearchContext>(mapSearch);

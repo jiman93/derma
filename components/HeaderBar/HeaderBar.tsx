@@ -1,5 +1,4 @@
 import {
-  Header,
   Group,
   Menu,
   ActionIcon,
@@ -13,6 +12,7 @@ import {
   Checkbox,
   Paper,
   useMantineTheme,
+  Flex,
 } from '@mantine/core';
 import { useState } from 'react';
 import Link from 'next/link';
@@ -30,10 +30,8 @@ import {
   faPenRuler,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import useStyles from './Header.styles';
 
 const HeaderBar = () => {
-  const { classes } = useStyles();
   const [userMenuOpened, setUserMenuOpened] = useState(false);
   const [sidebarOpened, setSidebarOpened] = useState(true);
   const [settingDrawerOpened, setSettingDrawerOpened] = useState(false);
@@ -41,33 +39,33 @@ const HeaderBar = () => {
   const theme = useMantineTheme();
 
   return (
-    <Header height={50} p="xs">
-      <Grid className={classes.header}>
+    <>
+      <Grid>
         <Grid.Col span={10}>
-          <Box sx={{ display: 'flex' }}>
+          <Flex>
             <Burger opened={sidebarOpened} onClick={() => setSidebarOpened((o) => !o)} />
-            <Group spacing={50} ml={100}>
+            <Group gap={50} ml={100}>
               <Link href="/">
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
+                  leftSection={<FontAwesomeIcon icon={faPaperPlane} />}
                   variant="subtle"
                   color="gray"
                 >
                   Listing
                 </Button>
               </Link>
-              <Link href="/masjid">
+              <Link href="/masjid/id">
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={faPenRuler} />}
+                  leftSection={<FontAwesomeIcon icon={faPenRuler} />}
                   variant="subtle"
                   color="gray"
                 >
                   Masjid
                 </Button>
               </Link>
-              <Link href="/poster">
+              <Link href="/poster/id">
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={faPenRuler} />}
+                  leftSection={<FontAwesomeIcon icon={faPenRuler} />}
                   variant="subtle"
                   color="gray"
                 >
@@ -76,7 +74,7 @@ const HeaderBar = () => {
               </Link>
               <Link href="/user">
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={faPaperPlane} />}
+                  leftSection={<FontAwesomeIcon icon={faPaperPlane} />}
                   variant="subtle"
                   color="gray"
                 >
@@ -85,7 +83,7 @@ const HeaderBar = () => {
               </Link>
               <Link href="/help">
                 <Button
-                  leftIcon={<FontAwesomeIcon icon={faCircleInfo} />}
+                  leftSection={<FontAwesomeIcon icon={faCircleInfo} />}
                   variant="subtle"
                   color="gray"
                 >
@@ -93,10 +91,10 @@ const HeaderBar = () => {
                 </Button>
               </Link>
             </Group>
-          </Box>
+          </Flex>
         </Grid.Col>
-        <Grid.Col span={2} sx={{ display: 'flex', justifyContent: 'end' }}>
-          <Group spacing="sm" pr="md">
+        <Grid.Col span={2}>
+          <Group pr="md">
             <Button onClick={() => setSettingDrawerOpened(true)} pr="md" variant="light">
               Primary
               {/* <FontAwesomeIcon icon={faGear} size="lg" /> */}
@@ -121,7 +119,7 @@ const HeaderBar = () => {
         onClose={() => setSettingDrawerOpened(false)}
         position="right"
         title={
-          <Text color="gray.6" weight={700}>
+          <Text color="gray.6" fw={700}>
             Settings
           </Text>
         }
@@ -130,36 +128,36 @@ const HeaderBar = () => {
         <Text>Translation</Text>
         <Paper m="xs">
           <Space h="xs" />
-          <Text size="xs" weight={700}>
+          <Text size="xs" fw={700}>
             By Verse
           </Text>
           <Box>
             <Checkbox label="Show verse note" p="xxs" />
             <Checkbox label="Show tags and links" p="xxs" />
-            <Paper shadow="xs" mt="xxs" p="xs" sx={{ backgroundColor: theme.colors.gray[8] }}>
+            <Paper shadow="xs" mt="xxs" p="xs" bg={theme.colors.gray[8]}>
               <Text size="xs" color="gray.5">
                 Selected Translations
               </Text>
-              <Text weight="bold">Muhammad Asad</Text>
+              <Text fw="bold">Muhammad Asad</Text>
             </Paper>
           </Box>
           <Space h="xs" />
-          <Text size="xs" weight={700}>
+          <Text size="xs" fw={700}>
             By Word
           </Text>
           <Box>
             <Checkbox label="Show verse note" p="xxs" />
             <Checkbox label="Show tags and links" p="xxs" />
-            <Paper shadow="xs" mt="xxs" p="xs" sx={{ backgroundColor: theme.colors.gray[8] }}>
+            <Paper shadow="xs" mt="xxs" p="xs" bg={theme.colors.gray[8]}>
               <Text size="xs" color="gray.5">
                 Selected Translations
               </Text>
-              <Text weight="bold">Sahih International</Text>
+              <Text fw="bold">Sahih International</Text>
             </Paper>
           </Box>
         </Paper>
       </Drawer>
-    </Header>
+    </>
   );
 };
 

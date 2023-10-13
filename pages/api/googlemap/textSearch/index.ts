@@ -15,8 +15,6 @@ type MasjidListingSend = {
 const handler = async (req: NextApiRequest, res: NextApiResponse<MasjidListingSend>) => {
   const { search, page_token } = req.query as Partial<MasjidListingRequestBody>;
 
-  console.log('textsearch', req.query);
-
   try {
     const response = await client.textSearch({
       params: {

@@ -1,15 +1,17 @@
 import { PlaceData } from '.';
 
-interface Follow {
+export interface Follow {
   userId: string;
+  username: string;
+  userImagePath: string;
   followingId: string;
+  followingEntity: 'User' | 'Masjid' | 'Poster';
   startDate: string;
   endDate: string;
   reason: 'Click' | 'Organising' | 'Witnessing' | 'Donating' | 'Liking';
-  entity: 'User' | 'Masjid' | 'Poster';
 }
 
-interface Approval {
+export interface Approval {
   userId: string;
   posterId: string;
   date: string;
@@ -17,7 +19,7 @@ interface Approval {
   isApproved: boolean;
 }
 
-interface Admin {
+export interface Admin {
   userId: string;
   masjidId: string;
   startDate: string;
@@ -26,20 +28,23 @@ interface Admin {
   approvals: Approval[];
 }
 
-interface Contribution {
+export interface Contribution {
   userId: string;
-  recipientId: string; //  Attending | Administrating  == masjidId, referring == userId
+  username: string;
+  masjidId: string;
+  posterId: string;
   participation: {
     type: 'Organising' | 'Witnessing' | 'Attending' | 'Referring' | 'Administrating';
     date: string;
     points: number; // Organising = 3, Witnessing = 1.5, Attending = 1, Referring = 1, Administrating = 3
-  };
+  }[];
   giving: {
-    type: 'Donating' | 'Liking';
+    type: 'Donating' | 'Liking'; // user should NOT be restricted. They should be able to do both donate and like if they so wish
     date: string;
     amount: string;
     points: number; // Donating = 2, Liking = 1
-  };
+  }[];
+  lastContributionDate: string;
   completionDate: string;
   weightage: number; // if both participation and giving present, weight = 1.5 otherwise 1
   total: number; // Witness = 1.5 + Donating = 2  * weightage = 1.5  => total = 5.25
@@ -74,16 +79,12 @@ export interface Masjid {
     district: string;
   };
   placeData: PlaceData;
-  photos: [{ id: string; imagePath: string; createdDate: string }];
+  photos: { id: string; imagePath: string; createdDate: string }[];
   admins: Admin[];
   followers: Follow[];
   accountBalance: number;
-  contributed: {
-    postersOrganised: number;
-    amountCollected: number;
-    likesCollected: number;
-  };
-  posters: [{ posterId: string; posterName: string }];
+  contributions: Contribution[];
+  posters: [{ posterId: string; posterName: string; imageUrl: string }];
   archivedPosters: [{ posterId: string; posterName: string; archivedDate: string }];
 }
 
@@ -133,13 +134,11 @@ export interface Poster {
   contributedAmount: number;
   currentAmount: number;
   likes: number;
-  distributions: [
-    {
-      organiserId: string;
-      recipientId: string; // if there's problem recipient will be the masjid iteself.
-      date: string;
-      amount: number;
-      imageUrl: string;
-    }
-  ];
+  distributions: {
+    organiserId: string;
+    recipientId: string; // if there's problem recipient will be the masjid iteself.
+    date: string;
+    amount: number;
+    imageUrl: string;
+  }[];
 }

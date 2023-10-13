@@ -11,14 +11,14 @@ export function HeroContentLeft() {
       />
       <Container className={classes.container} size="md">
         <Title className={classes.title}>A fully featured components library</Title>
-        <Text className={classes.description} size="xl" mt="xl">
+        {/* <Text className={classes.description} size="xl" mt="xl">
           Build fully functional accessible web applications faster than ever – Mantine includes
           more than 120 customizable components and hooks to cover you in any situation
-        </Text>
+        </Text> */}
 
-        <Button variant="gradient" size="xl" radius="xl" className={classes.control}>
+        {/* <Button variant="gradient" size="xl" radius="xl" className={classes.control}>
           IMG
-        </Button>
+        </Button> */}
       </Container>
     </div>
   );

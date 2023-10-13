@@ -20,7 +20,6 @@ import SimpleMap from '../../components/Map';
 
 import { MapSearchContext } from '../../store/contexts/mapSearch';
 import { PlaceData } from '../../definitions';
-import { IconCircleCheck, IconCircleDashed } from '@tabler/icons-react';
 import { HeroContentLeft } from '../../components/Hero';
 
 const Masjid = () => (

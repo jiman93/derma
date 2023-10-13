@@ -17,10 +17,10 @@ import { GetStaticProps, NextPage } from 'next';
 
 import { useInputState } from '@mantine/hooks';
 import { SyntheticEvent, useContext, useState } from 'react';
-import SimpleMap from '../../components/Map';
+import SimpleMap from '../../../components/Map';
 
-import { MapSearchContext } from '../../store/contexts/mapSearch';
-import { PlaceData } from '../../definitions';
+import { MapSearchContext } from '../../../store/contexts/mapSearch';
+import { PlaceData } from '../../../definitions';
 import {
   IconCircleCheck,
   IconCircleDashed,
@@ -29,7 +29,7 @@ import {
   IconGitPullRequest,
   IconMessageDots,
 } from '@tabler/icons-react';
-import { HeroContentLeft } from '../../components/Hero';
+import { HeroContentLeft } from '../../../components/Hero';
 
 const Masjid = () => (
   <Container>
