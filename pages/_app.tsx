@@ -4,6 +4,9 @@ import { AppProps } from 'next/app';
 import { createTheme, MantineProvider } from '@mantine/core';
 
 import './index.scss';
+import '@mantine/tiptap/styles.css';
+import 'react-calendar-heatmap/dist/styles.css';
+
 import MapSearchProvider from '../store/providers/mapSearch';
 import HeaderBar from '../components/HeaderBar/HeaderBar';
 import dayjs from 'dayjs';

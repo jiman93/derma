@@ -1,26 +1,49 @@
 import { PlaceData } from '.';
+import {
+  ContributionType,
+  DermaEntity,
+  FollowReason,
+  InvolvementType,
+  PosterPhases,
+  PosterPriority,
+  PosterStatus,
+  PosterType,
+  UserRegistrationMethod,
+} from '../lib/constant';
+
+export type PosterStatus = (typeof PosterStatus)[keyof typeof PosterStatus];
+export type FollowReason = (typeof FollowReason)[keyof typeof FollowReason];
+export type DermaEntity = (typeof DermaEntity)[keyof typeof DermaEntity];
+export type ContributionType = (typeof ContributionType)[keyof typeof ContributionType];
+export type InvolvementType = (typeof InvolvementType)[keyof typeof InvolvementType];
+export type PosterPhases = (typeof PosterPhases)[keyof typeof PosterPhases] | '';
+export type PosterPriority = (typeof PosterPriority)[keyof typeof PosterPriority];
+export type PosterType = (typeof PosterType)[keyof typeof PosterType];
+export type UserRegistrationMethod =
+  (typeof UserRegistrationMethod)[keyof typeof UserRegistrationMethod];
 
 export interface Follow {
   userId: string;
   username: string;
   userImagePath: string;
   followingId: string;
-  followingEntity: 'User' | 'Masjid' | 'Poster';
+  followingEntity: DermaEntity;
   startDate: string;
   endDate: string;
-  reason: 'Click' | 'Organising' | 'Witnessing' | 'Donating' | 'Liking';
+  reason: FollowReason;
 }
 
 export interface Approval {
-  userId: string;
+  organisationId: string;
   posterId: string;
   date: string;
   reason: string;
   isApproved: boolean;
 }
 
-export interface Admin {
-  userId: string;
+export interface Administrating {
+  id: string;
+  organisationId: string;
   masjidId: string;
   startDate: string;
   endDate: string;
@@ -28,88 +51,156 @@ export interface Admin {
   approvals: Approval[];
 }
 
-export interface Contribution {
-  userId: string;
+export interface Referral {
+  id: string;
+  refereeId: string;
+  referrerId: string;
+  date: string;
+}
+
+export interface Transaction {
+  id: string;
+  senderId: string;
+  senderType: string;
+  recipientId: string;
+  recipientType: string;
+}
+
+export interface Distribution {
+  organiserId: string;
+  recipientId: string; // if there's problem recipient will be the masjid iteself.
+  date: string;
+  amount: number;
+  imageUrl: string;
+}
+
+interface Achievement {
+  id: string;
+  date: string;
+  type: string;
+}
+
+interface ListItem {
+  id: string;
+  name: string;
   username: string;
-  masjidId: string;
-  posterId: string;
-  participation: {
-    type: 'Organising' | 'Witnessing' | 'Attending' | 'Referring' | 'Administrating';
-    date: string;
-    points: number; // Organising = 3, Witnessing = 1.5, Attending = 1, Referring = 1, Administrating = 3
-  }[];
-  giving: {
-    type: 'Donating' | 'Liking'; // user should NOT be restricted. They should be able to do both donate and like if they so wish
-    date: string;
-    amount: string;
-    points: number; // Donating = 2, Liking = 1
-  }[];
-  lastContributionDate: string;
-  completionDate: string;
-  weightage: number; // if both participation and giving present, weight = 1.5 otherwise 1
-  total: number; // Witness = 1.5 + Donating = 2  * weightage = 1.5  => total = 5.25
+  avatarPath: string;
+}
+
+export interface ContributionEntry {
+  type: ContributionType;
+  date: string;
+  transactionId: string;
+  referralId: string;
+  commentId: string;
+}
+
+export interface InvolvementEntry {
+  type: InvolvementType;
+  date: string;
+  administratingId: string;
+  commentId: string;
+}
+
+interface Photo {
+  id: string;
+  name: string;
+  format: string;
+  size: number;
+  imagePath: string;
+  createdDate: string;
+}
+
+export interface Contribution {
+  id: string;
+  user: ListItem;
+  masjid: ListItem;
+  poster: ListItem;
+  entries: ContributionEntry[];
+}
+
+export interface Involvement {
+  id: string;
+  organisation: ListItem;
+  masjid: ListItem;
+  poster: ListItem;
+  entries: InvolvementEntry[];
 }
 
 export interface User {
   id: string;
   name: string;
-  alias: string;
+  username: string;
   dob: string;
-  imageUrl: string;
-  email: string;
-  badge: 'Gold' | 'Silver' | 'Copper';
-  administrating: Admin[];
-  registration: {
-    joinDate: string;
-    method: 'Sign Up' | 'Social Login';
-    refereeId: string;
+  location: {
+    streetAddress: string;
+    state: string;
+    district: string;
   };
-  achievements: [{}];
+  avatarImage: Photo;
+  email: string;
+  registration: {
+    joinDate: Date;
+    method: UserRegistrationMethod;
+    referralId: string;
+  };
+  achievements: Achievement[];
   followers: Follow[];
   followings: Follow[];
+  organisation: Organisation;
+  posters: Poster[];
   contributions: Contribution[];
+}
+
+export interface Organisation {
+  id: string;
+  name: string;
+  username: string;
+  creationDate: string;
+  location: {
+    streetAddress: string;
+    state: string;
+    district: string;
+  };
+  website: string;
+  avatarImage: Photo;
+  achievements: Achievement[];
+  followers: Follow[];
+  people: User[];
+  posters: Poster[];
+  involvements: Involvement[];
 }
 
 export interface Masjid {
   id: string;
   name: string;
   alias: string;
+  avatarImage: Photo;
   location: {
     state: string;
     district: string;
   };
   placeData: PlaceData;
-  photos: { id: string; imagePath: string; createdDate: string }[];
-  admins: Admin[];
+  photos: Photo[];
+  admin: Organisation;
   followers: Follow[];
-  accountBalance: number;
-  contributions: Contribution[];
-  posters: [{ posterId: string; posterName: string; imageUrl: string }];
-  archivedPosters: [{ posterId: string; posterName: string; archivedDate: string }];
+  posters: Poster[];
+  archivedPosters: Poster[];
 }
 
 export interface Poster {
   id: string;
   name: string;
-  masjid: {
-    id: string;
-    name: string;
-  };
-  type:
-    | 'Charitable Causes'
-    | 'Mosque Development'
-    | 'Education Support'
-    | 'Healthcare Assistance'
-    | 'Emergency Relief';
-  photos: [{ id: string; imagePath: string; createdDate: string }];
+  avatarImage: Photo;
   remark: string;
+  masjid: ListItem;
+  type: PosterType;
+  priority: PosterPriority;
+  photos: Photo[];
   contributions: Contribution[];
-  recipients: [
-    {
-      userId: string;
-      userName: string;
-    }
-  ];
+  involvements: Involvement[];
+  creator: ListItem;
+  recipients: ListItem[];
   followers: Follow[];
   votes: {
     isActive: boolean;
@@ -118,27 +209,25 @@ export interface Poster {
     voteStartDate: string;
     voteEndDate: string;
   };
-  comments: [
-    {
-      userId: string;
-      userName: string;
-      createdDate: string;
-      text: string;
-    }
-  ];
+  comments: Comment[];
   approval: Approval;
   startDate: string;
   endDate: string;
-  status: 'Pending' | 'Voted' | 'Contributed' | 'Completed' | 'Cancelled' | 'Archived';
+  status: PosterStatus;
   targetAmount: number;
   contributedAmount: number;
   currentAmount: number;
   likes: number;
-  distributions: {
-    organiserId: string;
-    recipientId: string; // if there's problem recipient will be the masjid iteself.
-    date: string;
-    amount: number;
-    imageUrl: string;
-  }[];
+  distributions: Distribution[];
+}
+
+export interface Comment {
+  id: string;
+  user: ListItem;
+  type?: PosterPhases;
+  text: string;
+  replies: Comment[];
+  createdDate: string;
+  upvote: number;
+  downvote: number;
 }

@@ -19,14 +19,24 @@ import {
   rem,
   Modal,
   ActionIcon,
+  Divider,
+  Blockquote,
+  Checkbox,
+  Chip,
+  Collapse,
 } from '@mantine/core';
 
 import { useDisclosure, useHover } from '@mantine/hooks';
 import { useContext, useEffect, useState } from 'react';
 
 import { MapSearchContext } from '../../../store/contexts/mapSearch';
-import { createMockPoster, mockMasjid } from '../../../lib/mock';
-import { Masjid, Poster } from '../../../definitions/entities';
+import {
+  createMockPoster,
+  mockMasjid,
+  createMockUser,
+  createMockOrganisation,
+} from '../../../lib/mock';
+import { Masjid, Organisation, Poster, User } from '../../../definitions/entities';
 import dayjs from 'dayjs';
 import {
   IconArrowBigDown,
@@ -36,140 +46,194 @@ import {
   IconPhoto,
   IconSettings,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment, faHandHoldingDollar, faShare } from '@fortawesome/free-solid-svg-icons';
+import {
+  faChevronDown,
+  faChevronLeft,
+  faCircle,
+  faComment,
+  faEnvelope,
+  faFilter,
+  faHandHoldingDollar,
+  faLocation,
+  faLocationDot,
+  faLocationPin,
+  faShare,
+  faUsers,
+} from '@fortawesome/free-solid-svg-icons';
+import CalendarHeatmap from 'react-calendar-heatmap';
+import { faker } from '@faker-js/faker';
 
-const Masjid = () => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const iconStyle = { width: rem(12), height: rem(12) };
-
-  const [mockData, setMockData] = useState<Masjid>(null);
+const Organisation = () => {
+  const [mockData, setMockData] = useState<Organisation>(null);
 
   useEffect(() => {
     if (!mockData) {
-      const data = mockMasjid();
+      const data = createMockOrganisation();
       setMockData(data);
     }
   }, []);
 
   if (!mockData) return <div />;
 
-  const { name, photos, location, followers } = mockData;
-
   const content = Array(100)
     .fill(0)
     .map((_, index) => <p key={index}>{`Follower ${index}`}</p>);
 
   return (
-    <Container pos="relative">
-      <Image src={photos[0].imagePath} height={300} />
-
-      <Flex top={245} pos="absolute" mx="lg" w="90%">
-        <Avatar src={photos[1].imagePath} size={150} />
-
-        <Box ml="xl" mt={65} w="100%">
-          <Flex justify="space-between">
-            <Flex direction="column">
-              <Text size="xl" fw="bolder">
-                {name}
-              </Text>
-              <Text size="xs">{`${location.district}, ${location.state}`}</Text>
-            </Flex>
-            <Flex direction="column" align="end">
-              <Flex direction="row" mt="md" ml="md">
-                {followers.map((follower, i) => {
-                  if (i < 2) {
-                    return (
-                      <Tooltip label={follower.username} key={i} color="green">
-                        <Avatar src={follower.userImagePath} alt="it's me" size={40} />
-                      </Tooltip>
-                    );
-                  }
-                  if (i > 2 && i < 10) {
-                    return (
-                      <Tooltip label={follower.username} key={i}>
-                        <Avatar src={follower.userImagePath} alt="it's me" size={35} />
-                      </Tooltip>
-                    );
-                  }
-                  if (i === 11) {
-                    return (
-                      <>
-                        <Modal opened={opened} onClose={close} title="Followers">
-                          {content}
-                        </Modal>
-                        <Tooltip label="View all" key={i}>
-                          <ActionIcon radius="lg" size={'lg'} color="orange" onClick={open}>
-                            <Avatar alt="it's me">
-                              <Overlay color="#000" backgroundOpacity={0.35} />
-                              {followers.length}
-                            </Avatar>
-                          </ActionIcon>
-                        </Tooltip>
-                      </>
-                    );
-                  }
-                })}
-              </Flex>
-              <Text size="xs">{`2 Admins ${followers.length} followers`}</Text>
-            </Flex>
-          </Flex>
-        </Box>
-      </Flex>
-
-      <Space h={120} />
+    <Container pos="relative" size="lg">
       <Box pos="relative">
-        <Tabs defaultValue="posters">
-          <Tabs.List>
-            <Tabs.Tab value="posters" leftSection={<IconPhoto style={iconStyle} />}>
-              Posters
-            </Tabs.Tab>
-            <Tabs.Tab value="donations" leftSection={<IconMessageCircle style={iconStyle} />}>
-              Donations
-            </Tabs.Tab>
-            <Tabs.Tab value="media" leftSection={<IconSettings style={iconStyle} />}>
-              Media
-            </Tabs.Tab>
-          </Tabs.List>
-
-          <Space h="sm" />
-
-          <Tabs.Panel value="posters">
-            <MasjidPostersTab data={mockData} />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="donations"> Donations tab content</Tabs.Panel>
-
-          <Tabs.Panel value="media">Media tab content</Tabs.Panel>
-        </Tabs>
+        <MasjidPostersTab data={mockData} />
       </Box>
     </Container>
   );
 };
 
-const MasjidPostersTab = ({ data }) => {
+const MasjidPostersTab = ({ data }: { data: Organisation }) => {
+  const [opened, { toggle }] = useDisclosure(true);
+
+  const renderIntroBox = (
+    <Paper p="sm">
+      <Flex direction="column">
+        <Avatar src={data.avatarImage.imagePath} size={300} mb="sm" />
+
+        <Box mb="xs">
+          <Text fz={25} fw="bold">
+            {data.name}
+          </Text>
+          <Text fz={20} mb="sm" c="dimmed">
+            {data.username}
+          </Text>
+        </Box>
+
+        <Button w="full" color="gray">
+          Follow
+        </Button>
+
+        <Flex align="center">
+          <FontAwesomeIcon icon={faUsers} />
+          <Button variant="subtle" color="light" size="sm">
+            300 Followers
+          </Button>
+        </Flex>
+
+        <Group align="center" mb="sm">
+          <FontAwesomeIcon icon={faEnvelope} />
+          <Text size="sm" fw="bold">
+            {data.website}
+          </Text>
+        </Group>
+
+        <Group align="center" mb="sm">
+          <FontAwesomeIcon icon={faLocationDot} />
+          <Text size="sm" fw="bold">
+            {`${data.location.district}, ${data.location.state}`}
+          </Text>
+        </Group>
+      </Flex>
+
+      <Divider my="sm" />
+      <Flex direction="column">
+        <Text size="lg" fw="bold">
+          People
+        </Text>
+
+        <Group mt="sm" c="dimmed">
+          {data.people.map((peep) => {
+            return (
+              <Tooltip label={peep.name}>
+                <Avatar src={peep.avatarImage.imagePath} alt="it's me" />
+              </Tooltip>
+            );
+          })}
+        </Group>
+      </Flex>
+
+      <Divider my="sm" />
+      <Flex direction="column">
+        <Text size="lg" fw="bold">
+          Posters
+        </Text>
+
+        <Group mt="sm" c="dimmed">
+          {data.posters.map((poster) => {
+            return (
+              <Tooltip label={poster.name}>
+                <Avatar src={poster.avatarImage.imagePath} />
+              </Tooltip>
+            );
+          })}
+        </Group>
+      </Flex>
+
+      <Divider my="sm" />
+      <Flex direction="column">
+        <Text size="lg" fw="bold">
+          Masjid
+        </Text>
+
+        <Group mt="sm" c="dimmed">
+          {data.involvements.map((inv) => {
+            return (
+              <Tooltip label={inv.masjid.name}>
+                <Avatar src={inv.masjid.avatarPath} />
+              </Tooltip>
+            );
+          })}
+        </Group>
+      </Flex>
+    </Paper>
+  );
+
+  const currentDate = dayjs().format('YYYY-MM-DD');
+  const date365DaysAgo = dayjs(currentDate).subtract(365, 'day').format('YYYY-MM-DD');
+
   return (
     <Grid p="md">
-      <Grid.Col span={9} bg="gray.9">
-        <Text size="sm" fw="bolder">
-          Active Posters
-        </Text>
-        <Space h="md" />
-        <MasjidMiddleContent data={data} />
+      <Grid.Col span={4} pl="md">
+        <Flex direction="column">{renderIntroBox}</Flex>
       </Grid.Col>
-      <Grid.Col span={3} pl="md">
-        <Text size="sm" fw="bolder">
-          Completed Posters
-        </Text>
-        <Space h="md" />
-        <MasjidRightContent data={data} />
+      <Grid.Col span={8}>
+        <Stack gap="sm">
+          <Paper p="xs" mb="sm" radius="lg" bg="gray.9">
+            <Flex justify={'space-between'}>
+              <Text fw="bold" size="lg">
+                Activities
+              </Text>
+              <Button
+                variant="light"
+                color="gray"
+                leftSection={<FontAwesomeIcon icon={faFilter} />}
+              >
+                Filter
+              </Button>
+            </Flex>
+          </Paper>
+
+          <Box bg="gray.9">
+            <Flex justify="space-between" p="xs">
+              <Flex direction="column">
+                <Text fw="bold">Year 2023</Text>
+              </Flex>
+              <ActionIcon variant="subtle" onClick={toggle}>
+                <FontAwesomeIcon icon={opened ? faChevronDown : faChevronLeft} />
+              </ActionIcon>
+            </Flex>
+            <Collapse in={opened}>
+              <Box p="sm">
+                <MasjidMiddleContent />
+              </Box>
+            </Collapse>
+          </Box>
+        </Stack>
       </Grid.Col>
     </Grid>
   );
 };
 
-const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
+const MasjidMiddleContent = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { hovered, ref } = useHover();
 
@@ -179,14 +243,11 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
 
   return (
     <>
-      {data.posters.map((item) => {
-        {
-          /* {content.map((item) => {
+      {content.map((_) => {
         let data = null as Poster;
 
         if (!data) {
           data = createMockPoster();
-        } */
         }
         const {
           followers,
@@ -202,8 +263,7 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
           currentAmount,
           contributions,
           comments,
-          creator,
-        } = item;
+        } = data;
 
         const renderContributionSection = (
           <Grid>
@@ -258,13 +318,12 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
                           const then = dayjs(lastEntry.date);
                           const formattedDiff = then.fromNow();
 
-                          // show only latest 3 contributors
                           if (i > 2) return;
 
                           return (
                             <Table.Tr key={i}>
                               <Table.Td>{element.user.username}</Table.Td>
-                              <Table.Td>{`${lastEntry.type}`}</Table.Td>
+                              <Table.Td>{lastEntry.type}</Table.Td>
                               <Table.Td>{formattedDiff}</Table.Td>
                             </Table.Tr>
                           );
@@ -306,12 +365,24 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
         const renderVoteSection = (
           <Grid>
             <Grid.Col span={3}>
-              <Stack justify="flex-start" mr="md">
-                <Text size="sm" fw="bolder">
-                  {status}
-                </Text>
+              <Stack align="center" gap="xs" mr="sm">
+                <Button
+                  onClick={open}
+                  variant="transparent"
+                  leftSection={<IconArrowBigUp size={20} />}
+                >
+                  Upvote
+                </Button>
 
-                <Image radius="xl" src={photos[0]?.imagePath} h={150} w={150} />
+                {votes.upvote + votes.downvote}
+
+                <Button
+                  onClick={open}
+                  variant="transparent"
+                  leftSection={<IconArrowBigDown size={20} />}
+                >
+                  Downvote
+                </Button>
               </Stack>
             </Grid.Col>
 
@@ -392,25 +463,18 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
         return (
           <div ref={ref}>
             <Paper withBorder p="xs" mb="xl" style={{ cursor: 'pointer' }}>
-              <Flex justify="space-between" mb="xs">
-                <Stack maw="80%">
-                  <Group>
-                    <Tooltip label={creator.name}>
-                      <Avatar src={creator.avatarPath} alt="it's me" />
-                    </Tooltip>
-                    <Text size="lg" fw="bolder" onClick={() => router.push('/poster/id')}>
-                      {name}
-                    </Text>
-                  </Group>
-                  <Text size="xs">{remark}</Text>
-                </Stack>
-                <Stack align="end">
-                  <ActionIcon variant="subtle" mr="xs" size="md">
-                    <Text size="xl">{likes}</Text>
-                  </ActionIcon>
-                  <Text size="xs">{dayjs(startDate).format('DD/MM/YYYY')}</Text>
-                </Stack>
+              <Text size="sm" c="dimmed" mb="xs">
+                Poster created, Poster voting poll starts, Poster open for contribution, Poster is
+                in distribution process. Poster completed. Poster Archived. Approved a poster.
+                Verified a distribution.
+              </Text>
+              <Flex justify="space-between" align="center" mb="xs">
+                <Text size="lg" fw="bolder" onClick={() => router.push('/poster/id')}>
+                  {name}
+                </Text>
+                <Text size="xs">{dayjs(startDate).format('DD/MM/YYYY')}</Text>
               </Flex>
+              <Text size="xs">{remark}</Text>
 
               <Space h="md" />
 
@@ -423,62 +487,4 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
   );
 };
 
-const MasjidRightContent = ({ data }: { data: Masjid }) => {
-  const [opened, { open, close }] = useDisclosure(false);
-  const { hovered, ref } = useHover();
-
-  const router = useRouter();
-
-  const content = Array(20).fill(0);
-
-  return (
-    <>
-      {content.map((_) => {
-        const {
-          followers,
-          name,
-          votes,
-          startDate,
-          photos,
-          status,
-          likes,
-          targetAmount,
-          contributedAmount,
-          contributions,
-          comments,
-          endDate,
-        } = createMockPoster();
-        return (
-          <div ref={ref}>
-            <Paper withBorder p="xs" style={{ cursor: 'pointer' }}>
-              <Flex>
-                <ActionIcon variant="subtle" mr="xs" size="md">
-                  {likes}
-                </ActionIcon>
-                <Text size="sm" fw="bolder" onClick={() => router.push('/poster/id')}>
-                  {name}
-                </Text>
-              </Flex>
-
-              <Button
-                radius="md"
-                variant="transparent"
-                leftSection={<FontAwesomeIcon icon={faHandHoldingDollar} />}
-              >
-                {contributedAmount}
-              </Button>
-
-              <Flex justify="end">
-                <Text size="xs">Completed on {dayjs(endDate).format('DD/MM/YYYY')}</Text>
-              </Flex>
-            </Paper>
-
-            <Space h="md" />
-          </div>
-        );
-      })}
-    </>
-  );
-};
-
-export default Masjid;
+export default Organisation;

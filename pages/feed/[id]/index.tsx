@@ -19,6 +19,7 @@ import {
   rem,
   Modal,
   ActionIcon,
+  SimpleGrid,
 } from '@mantine/core';
 
 import { useDisclosure, useHover } from '@mantine/hooks';
@@ -36,11 +37,15 @@ import {
   IconPhoto,
   IconSettings,
 } from '@tabler/icons-react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faHandHoldingDollar, faShare } from '@fortawesome/free-solid-svg-icons';
+import CreatePoster from '../../../components/CreatePoster/CreatePoster';
 
-const Masjid = () => {
+const Feed = () => {
+  const { selectedData } = useContext(MapSearchContext);
+
   const [opened, { open, close }] = useDisclosure(false);
   const iconStyle = { width: rem(12), height: rem(12) };
 
@@ -62,114 +67,31 @@ const Masjid = () => {
     .map((_, index) => <p key={index}>{`Follower ${index}`}</p>);
 
   return (
-    <Container pos="relative">
-      <Image src={photos[0].imagePath} height={300} />
+    <Container mt="xl">
+      <Grid p="md">
+        <Grid.Col span={9} bg="gray.9">
+          <Flex>
+            <Avatar src={photos[0].imagePath} alt="it's me" />
 
-      <Flex top={245} pos="absolute" mx="lg" w="90%">
-        <Avatar src={photos[1].imagePath} size={150} />
-
-        <Box ml="xl" mt={65} w="100%">
-          <Flex justify="space-between">
-            <Flex direction="column">
-              <Text size="xl" fw="bolder">
-                {name}
-              </Text>
-              <Text size="xs">{`${location.district}, ${location.state}`}</Text>
-            </Flex>
-            <Flex direction="column" align="end">
-              <Flex direction="row" mt="md" ml="md">
-                {followers.map((follower, i) => {
-                  if (i < 2) {
-                    return (
-                      <Tooltip label={follower.username} key={i} color="green">
-                        <Avatar src={follower.userImagePath} alt="it's me" size={40} />
-                      </Tooltip>
-                    );
-                  }
-                  if (i > 2 && i < 10) {
-                    return (
-                      <Tooltip label={follower.username} key={i}>
-                        <Avatar src={follower.userImagePath} alt="it's me" size={35} />
-                      </Tooltip>
-                    );
-                  }
-                  if (i === 11) {
-                    return (
-                      <>
-                        <Modal opened={opened} onClose={close} title="Followers">
-                          {content}
-                        </Modal>
-                        <Tooltip label="View all" key={i}>
-                          <ActionIcon radius="lg" size={'lg'} color="orange" onClick={open}>
-                            <Avatar alt="it's me">
-                              <Overlay color="#000" backgroundOpacity={0.35} />
-                              {followers.length}
-                            </Avatar>
-                          </ActionIcon>
-                        </Tooltip>
-                      </>
-                    );
-                  }
-                })}
-              </Flex>
-              <Text size="xs">{`2 Admins ${followers.length} followers`}</Text>
-            </Flex>
+            <Space w="md" />
+            <CreatePoster style={{ flex: 1 }} />
           </Flex>
-        </Box>
-      </Flex>
-
-      <Space h={120} />
-      <Box pos="relative">
-        <Tabs defaultValue="posters">
-          <Tabs.List>
-            <Tabs.Tab value="posters" leftSection={<IconPhoto style={iconStyle} />}>
-              Posters
-            </Tabs.Tab>
-            <Tabs.Tab value="donations" leftSection={<IconMessageCircle style={iconStyle} />}>
-              Donations
-            </Tabs.Tab>
-            <Tabs.Tab value="media" leftSection={<IconSettings style={iconStyle} />}>
-              Media
-            </Tabs.Tab>
-          </Tabs.List>
-
-          <Space h="sm" />
-
-          <Tabs.Panel value="posters">
-            <MasjidPostersTab data={mockData} />
-          </Tabs.Panel>
-
-          <Tabs.Panel value="donations"> Donations tab content</Tabs.Panel>
-
-          <Tabs.Panel value="media">Media tab content</Tabs.Panel>
-        </Tabs>
-      </Box>
+          <Space h="md" />
+          <MasjidMiddleContent />
+        </Grid.Col>
+        <Grid.Col span={3} pl="md">
+          <Text size="sm" fw="bolder">
+            Contributions
+          </Text>
+          <Space h="md" />
+          <MasjidRightContent />
+        </Grid.Col>
+      </Grid>
     </Container>
   );
 };
 
-const MasjidPostersTab = ({ data }) => {
-  return (
-    <Grid p="md">
-      <Grid.Col span={9} bg="gray.9">
-        <Text size="sm" fw="bolder">
-          Active Posters
-        </Text>
-        <Space h="md" />
-        <MasjidMiddleContent data={data} />
-      </Grid.Col>
-      <Grid.Col span={3} pl="md">
-        <Text size="sm" fw="bolder">
-          Completed Posters
-        </Text>
-        <Space h="md" />
-        <MasjidRightContent data={data} />
-      </Grid.Col>
-    </Grid>
-  );
-};
-
-const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
+const MasjidMiddleContent = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { hovered, ref } = useHover();
 
@@ -179,14 +101,11 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
 
   return (
     <>
-      {data.posters.map((item) => {
-        {
-          /* {content.map((item) => {
+      {content.map((_) => {
         let data = null as Poster;
 
         if (!data) {
           data = createMockPoster();
-        } */
         }
         const {
           followers,
@@ -202,8 +121,7 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
           currentAmount,
           contributions,
           comments,
-          creator,
-        } = item;
+        } = data;
 
         const renderContributionSection = (
           <Grid>
@@ -253,6 +171,7 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
                       <Table.Tbody>
                         {contributions.map((element, i) => {
                           const { entries } = element;
+
                           const lastEntry = entries[entries.length - 1];
 
                           const then = dayjs(lastEntry.date);
@@ -264,7 +183,7 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
                           return (
                             <Table.Tr key={i}>
                               <Table.Td>{element.user.username}</Table.Td>
-                              <Table.Td>{`${lastEntry.type}`}</Table.Td>
+                              <Table.Td>{lastEntry.type}</Table.Td>
                               <Table.Td>{formattedDiff}</Table.Td>
                             </Table.Tr>
                           );
@@ -306,12 +225,24 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
         const renderVoteSection = (
           <Grid>
             <Grid.Col span={3}>
-              <Stack justify="flex-start" mr="md">
-                <Text size="sm" fw="bolder">
-                  {status}
-                </Text>
+              <Stack align="center" gap="xs" mr="sm">
+                <Button
+                  onClick={open}
+                  variant="transparent"
+                  leftSection={<IconArrowBigUp size={20} />}
+                >
+                  Upvote
+                </Button>
 
-                <Image radius="xl" src={photos[0]?.imagePath} h={150} w={150} />
+                {votes.upvote + votes.downvote}
+
+                <Button
+                  onClick={open}
+                  variant="transparent"
+                  leftSection={<IconArrowBigDown size={20} />}
+                >
+                  Downvote
+                </Button>
               </Stack>
             </Grid.Col>
 
@@ -392,25 +323,13 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
         return (
           <div ref={ref}>
             <Paper withBorder p="xs" mb="xl" style={{ cursor: 'pointer' }}>
-              <Flex justify="space-between" mb="xs">
-                <Stack maw="80%">
-                  <Group>
-                    <Tooltip label={creator.name}>
-                      <Avatar src={creator.avatarPath} alt="it's me" />
-                    </Tooltip>
-                    <Text size="lg" fw="bolder" onClick={() => router.push('/poster/id')}>
-                      {name}
-                    </Text>
-                  </Group>
-                  <Text size="xs">{remark}</Text>
-                </Stack>
-                <Stack align="end">
-                  <ActionIcon variant="subtle" mr="xs" size="md">
-                    <Text size="xl">{likes}</Text>
-                  </ActionIcon>
-                  <Text size="xs">{dayjs(startDate).format('DD/MM/YYYY')}</Text>
-                </Stack>
+              <Flex justify="space-between" align="center" mb="xs">
+                <Text size="lg" fw="bolder" onClick={() => router.push('/poster/id')}>
+                  {name}
+                </Text>
+                <Text size="xs">{dayjs(startDate).format('DD/MM/YYYY')}</Text>
               </Flex>
+              <Text size="xs">{remark}</Text>
 
               <Space h="md" />
 
@@ -423,7 +342,7 @@ const MasjidMiddleContent = ({ data }: { data: Masjid }) => {
   );
 };
 
-const MasjidRightContent = ({ data }: { data: Masjid }) => {
+const MasjidRightContent = () => {
   const [opened, { open, close }] = useDisclosure(false);
   const { hovered, ref } = useHover();
 
@@ -465,7 +384,7 @@ const MasjidRightContent = ({ data }: { data: Masjid }) => {
                 variant="transparent"
                 leftSection={<FontAwesomeIcon icon={faHandHoldingDollar} />}
               >
-                {contributedAmount}
+                RM {contributedAmount}
               </Button>
 
               <Flex justify="end">
@@ -481,4 +400,4 @@ const MasjidRightContent = ({ data }: { data: Masjid }) => {
   );
 };
 
-export default Masjid;
+export default Feed;

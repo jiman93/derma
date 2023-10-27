@@ -72,13 +72,31 @@ const HeaderBar = () => {
                   Poster
                 </Button>
               </Link>
-              <Link href="/user">
+              <Link href="/feed/id">
+                <Button
+                  leftSection={<FontAwesomeIcon icon={faPaperPlane} />}
+                  variant="subtle"
+                  color="gray"
+                >
+                  Feed
+                </Button>
+              </Link>
+              <Link href="/user/id">
                 <Button
                   leftSection={<FontAwesomeIcon icon={faPaperPlane} />}
                   variant="subtle"
                   color="gray"
                 >
                   User
+                </Button>
+              </Link>
+              <Link href="/organisation/id">
+                <Button
+                  leftSection={<FontAwesomeIcon icon={faPaperPlane} />}
+                  variant="subtle"
+                  color="gray"
+                >
+                  Organisation
                 </Button>
               </Link>
               <Link href="/help">
